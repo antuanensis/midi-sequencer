@@ -28,15 +28,39 @@ This focus follows the original project rule: the sequencer must be testable wit
   - Description: Added XCTest coverage for playback, sparse locks, probability, pitch behavior, transforms, and quantization.
   - Why: Deterministic tests are the guardrail for practical clip manipulation. They keep the app from becoming a flashy interface over untrusted timing behavior.
 
-- [ ] Add project-level Codable models.
+- [x] Add project-level Codable models.
   - Description: Introduce `Project`, `Track`, clip collection, global scale defaults, and schema/version metadata around the existing clip engine.
   - Why: The original idea requires project files to be Codable and clips to be duplicated, deleted, transformed, and persisted. This is the smallest next step that turns a single clip engine into an app-shaped data model.
   - Stream position: Do this before persistence, fixtures, UI, or AUv3 so every later layer edits the same canonical state.
   - Tests required: Codable round-trip tests for project, track, clip, locks, pitch behaviors, and transform metadata.
 
+- [x] Add explicit transform command metadata.
+  - Description: Added serializable transform command cases for duplicate, delete, transpose, octave shift, rotate, reverse, and quantize.
+  - Why: The original idea says transformations should be explicit and serializable; this records user intent instead of only baking anonymous edits into clip steps.
+
+- [x] Define delete clip semantics for the one-clip MVP.
+  - Description: Deleting a clip removes it from the project and from all track clip references. If the deleted clip was active, the track falls back to the first remaining clip or no active clip.
+  - Why: Delete is part of the MVP clip operations, and this rule keeps project state explicit without inventing hidden replacement clips.
+
+- [x] Add project-state transform application API.
+  - Description: Added project-level application for duplicate, delete, transpose, octave shift, rotate, reverse, and quantize commands.
+  - Why: UI, fixtures, persistence, and later AUv3 state handling now have one canonical transform path.
+
+- [x] Add deterministic LFO model and tests.
+  - Description: Added beat-clocked sine, triangle, and square LFOs with MIDI-safe destinations for CC values and probability modulation.
+  - Why: LFOs are part of the original MVP, but this keeps them deterministic, testable, and modest instead of turning into an overbuilt modulation system.
+
+- [x] Add render-window playback API.
+  - Description: Added engine rendering for a beat range, matching full-loop rendering filtered to the same range.
+  - Why: Debug app transport and AUv3 host callbacks need windowed playback instead of regenerating whole loops for every playback slice.
+
+- [x] Add fixture projects and demo clips.
+  - Description: Added a type-checked clip lab demo project that exercises locks, pitch behavior, transforms, quantization, LFOs, and windowed rendering.
+  - Why: Fixtures give the future debug app realistic material and keep examples tied to executable tests.
+
 ## Next Safe Task
 
-Add project-level Codable types for project, track, clip collection, and transform metadata, then test JSON round-tripping.
+Create the smallest standalone/debug SwiftUI iPad app target that imports the SwiftPM engine and displays the demo clip with a renderable event log.
 
 ## Blocked / Deferred
 

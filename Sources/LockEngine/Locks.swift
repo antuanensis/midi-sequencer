@@ -59,6 +59,24 @@ public struct PitchBehaviorMap: Codable, Equatable, Sendable {
         self.behaviors = behaviors
     }
 
+    private enum CodingKeys: String, CodingKey {
+        case behaviors
+    }
+
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let entries = try container.decode([Entry].self, forKey: .behaviors)
+        self.behaviors = Dictionary(uniqueKeysWithValues: entries.map { ($0.target, $0.behavior) })
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        let entries = behaviors
+            .map { Entry(target: $0.key, behavior: $0.value) }
+            .sorted { $0.target.sortKey < $1.target.sortKey }
+        try container.encode(entries, forKey: .behaviors)
+    }
+
     public func behavior(for note: Int) -> PitchBehavior {
         let pitchClass = ((note % 12) + 12) % 12
         var result = behaviors[.pitchClass(pitchClass)] ?? PitchBehavior()
@@ -72,5 +90,21 @@ public struct PitchBehaviorMap: Codable, Equatable, Sendable {
         }
 
         return result
+    }
+
+    private struct Entry: Codable, Equatable {
+        let target: PitchBehaviorTarget
+        let behavior: PitchBehavior
+    }
+}
+
+private extension PitchBehaviorTarget {
+    var sortKey: String {
+        switch self {
+        case .pitch(let value):
+            return "pitch-\(value)"
+        case .pitchClass(let value):
+            return "pitchClass-\(value)"
+        }
     }
 }

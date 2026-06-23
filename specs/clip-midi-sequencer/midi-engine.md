@@ -29,6 +29,15 @@ MVP clips use 16 steps. The initial engine uses beat-based timing with `beatsPer
 
 AUv3 host sync is a later adapter. It should translate tempo, transport, and beat ranges into engine render windows without moving sequencing rules into the plugin.
 
+Current implementation: the engine can render scheduled MIDI events for a requested beat range. Windowed output matches full-loop rendering filtered to the same range, including note-off events that fall inside the window for notes triggered before the window.
+
 ## LFO Direction
 
 LFOs should be deterministic, beat-clocked, and initially limited to MIDI-safe destinations such as CC value modulation or probability modulation. Avoid free-running hidden state in core tests.
+
+Current implementation:
+
+- Shapes: sine, triangle, square.
+- Clocking: value is derived from beat, rate, and phase offset.
+- Destinations: MIDI CC values and probability modulation.
+- Scope: LFO values are evaluated during deterministic engine rendering.

@@ -19,7 +19,7 @@ let package = Package(
         .target(name: "MidiCore"),
         .target(name: "LockEngine", dependencies: ["MidiCore"]),
         .target(name: "TheoryEngine", dependencies: ["MidiCore"]),
-        .target(name: "SequencerCore", dependencies: ["MidiCore", "LockEngine"]),
+        .target(name: "SequencerCore", dependencies: ["MidiCore", "LockEngine", "TheoryEngine"]),
         .target(name: "TransformEngine", dependencies: ["MidiCore", "SequencerCore", "TheoryEngine"]),
         .testTarget(name: "SequencerCoreTests", dependencies: ["MidiCore", "LockEngine", "TheoryEngine", "SequencerCore", "TransformEngine"])
     ]

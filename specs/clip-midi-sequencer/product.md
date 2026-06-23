@@ -43,3 +43,11 @@ A user can load or run the debug app, create a 16-step MIDI clip, apply step loc
 - A 16-step clip renders predictable MIDI events.
 - Step locks and pitch behavior are sparse, explicit, Codable-friendly data.
 - AUv3 layer is an adapter over the engine, not the home of sequencing rules.
+
+## Current Engine Readiness
+
+- Project-level Codable state exists.
+- Transform commands are serializable and applicable to project state.
+- LFOs are deterministic and limited to MIDI-safe destinations.
+- Render-window playback is available for future debug transport and AUv3 host callbacks.
+- A clip lab demo project fixture is available for tests and future UI work.

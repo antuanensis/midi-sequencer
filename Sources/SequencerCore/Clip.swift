@@ -45,6 +45,7 @@ public struct MIDIClip: Codable, Equatable, Sendable {
     public var steps: [ClipStep]
     public var stepLocks: [Int: StepLock]
     public var pitchBehaviorMap: PitchBehaviorMap
+    public var lfos: [ClipLFO]
     public var beatsPerStep: Double
 
     public init(
@@ -53,6 +54,7 @@ public struct MIDIClip: Codable, Equatable, Sendable {
         steps: [ClipStep] = Array(repeating: ClipStep(), count: 16),
         stepLocks: [Int: StepLock] = [:],
         pitchBehaviorMap: PitchBehaviorMap = PitchBehaviorMap(),
+        lfos: [ClipLFO] = [],
         beatsPerStep: Double = 0.25
     ) {
         precondition(!steps.isEmpty, "A clip must contain at least one step")
@@ -61,6 +63,7 @@ public struct MIDIClip: Codable, Equatable, Sendable {
         self.steps = steps
         self.stepLocks = stepLocks
         self.pitchBehaviorMap = pitchBehaviorMap
+        self.lfos = lfos
         self.beatsPerStep = beatsPerStep
     }
 

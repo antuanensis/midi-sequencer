@@ -9,9 +9,11 @@ Definition: A 16-step clip can render deterministic MIDI output from pure Swift 
 - [x] Implement initial MIDI event types.
 - [x] Implement initial clip, step, lock, pitch behavior, theory, and transform logic.
 - [x] Add initial tests.
-- [ ] Add project-level Codable models.
-- [ ] Add LFO model and tests.
-- [ ] Add fixture projects.
+- [x] Add project-level Codable models.
+- [x] Add transform command metadata and project-state transform application.
+- [x] Add LFO model and tests.
+- [x] Add render-window playback API.
+- [x] Add fixture projects.
 
 ## Milestone 2: Debug App
 

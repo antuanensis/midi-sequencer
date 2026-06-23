@@ -2,37 +2,43 @@
 
 ## Stream 1: Finish The Pure Engine
 
-- [ ] Add project-level Codable models.
+- [x] Add project-level Codable models.
   - Description: Create Codable `Project`, `Track`, clip collection, global theory settings, and schema version types.
   - Why: The product vision includes save/load project data and a one-track, one-clip MVP. This converts the current clip-only engine into the smallest real project model.
   - Implement after: current engine skeleton.
   - Implement before: persistence, fixtures, SwiftUI editor, AUv3 state.
 
-- [ ] Add explicit transform command metadata.
+- [x] Add explicit transform command metadata.
   - Description: Model operations such as duplicate, delete, transpose, octave shift, rotate, reverse, and quantize as serializable commands or history entries.
   - Why: The original idea says clip transformations should be explicit and serializable. This lets the app explain and persist what happened instead of only baking anonymous note changes.
   - Implement after: project-level Codable models.
   - Implement before: UI transform controls and persistence migration decisions.
 
-- [ ] Define delete clip semantics for the one-clip MVP.
+- [x] Define delete clip semantics for the one-clip MVP.
   - Description: Decide whether deleting the only clip creates an empty default clip, leaves an empty track, or blocks deletion.
   - Why: Delete is part of the MVP clip operations, but a one-track/one-clip app needs predictable behavior before UI controls expose it.
   - Implement after: project and track models.
   - Implement before: SwiftUI clip operations.
 
-- [ ] Add deterministic LFO model and tests.
+- [x] Add project-state transform application API.
+  - Description: Apply `ClipTransformCommand` values to `SequencerProject`, update affected clips/tracks, and append successful commands to transform history.
+  - Why: The app needs one canonical path for UI, fixtures, persistence, and future AUv3 state changes to mutate clips. Otherwise transforms risk becoming duplicated in UI actions and tests.
+  - Implement after: delete clip semantics.
+  - Implement before: fixture projects and SwiftUI transform controls.
+
+- [x] Add deterministic LFO model and tests.
   - Description: Add beat-clocked LFO definitions with phase, shape, rate, depth, and MIDI-safe destinations such as CC value modulation or probability modulation.
   - Why: LFO capability is in the original MVP, but it must support the project vision without becoming overcomplicated modulation. Keeping it deterministic makes it testable and AUv3-safe.
   - Implement after: project model and transform metadata.
   - Implement before: UI modulation controls or AUv3 output.
 
-- [ ] Add render-window playback API.
+- [x] Add render-window playback API.
   - Description: Render events for a beat range instead of only full loops.
   - Why: The current engine can prove deterministic clip output, but host sync and live playback need windowed rendering to avoid regenerating whole clips on every callback.
   - Implement after: project model and LFO basics.
   - Implement before: debug transport and AUv3 host sync.
 
-- [ ] Add fixture projects and demo clips.
+- [x] Add fixture projects and demo clips.
   - Description: Create small Codable fixtures showing step locks, pitch behavior, transforms, quantization, and LFO behavior.
   - Why: Fixtures turn the product vision into concrete examples and give tests plus UI work realistic material.
   - Implement after: Codable project model and LFO model.
