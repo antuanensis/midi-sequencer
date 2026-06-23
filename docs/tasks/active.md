@@ -58,15 +58,20 @@ This focus follows the original project rule: the sequencer must be testable wit
   - Description: Added a type-checked clip lab demo project that exercises locks, pitch behavior, transforms, quantization, LFOs, and windowed rendering.
   - Why: Fixtures give the future debug app realistic material and keep examples tied to executable tests.
 
+- [x] Add package-backed SwiftUI debug shell.
+  - Description: Added an `AppUI` package target, a thin `MidiSequencerDebugApp` SwiftUI executable target, a clip-centric debug surface, and AppUI tests.
+  - Why: This is the smallest user-visible layer over the tested engine. It displays the demo clip as the primary object, exposes sparse lock and rule summaries, and shows a rendered event log without moving sequencing rules into UI code.
+  - Scope note: This is not yet a full Xcode iPad app project or AUv3 shell. It is a package-backed debug surface that can be wrapped by the future iPad target.
+
 ## Next Safe Task
 
-Create the smallest standalone/debug SwiftUI iPad app target that imports the SwiftPM engine and displays the demo clip with a renderable event log.
+Create the native Xcode iPad debug app wrapper around `AppUI`, then make the clip grid editable one control group at a time.
 
 ## Blocked / Deferred
 
-- [ ] Standalone/debug SwiftUI app target.
-  - Description: Build the iPad debug editor after project state and fixtures exist.
-  - Why deferred: The vision calls for a tactile editor, but building UI before the data model settles risks rework and encourages unfinished subsystems.
+- [ ] Native standalone/debug SwiftUI iPad app target.
+  - Description: Wrap the package-backed `AppUI` debug surface in an Xcode iPad app target.
+  - Why deferred: The tested SwiftUI surface exists in SwiftPM; the remaining work is native app target wiring, simulator validation, and eventual Core MIDI debug output.
 
 - [ ] AUv3 host sync integration.
   - Description: Translate host tempo, transport, and beat windows into engine render requests.

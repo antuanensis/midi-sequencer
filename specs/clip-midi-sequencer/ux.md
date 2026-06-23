@@ -4,6 +4,10 @@
 
 The app should feel like a fast, tactile MIDI clip laboratory.
 
+## Clip-Centric Model
+
+The primary editable object is the MIDI clip. Notes are values inside clip steps, and locks, probability, transforms, scale quantization, pitch behavior, and LFO modulation are clip data or clip projections. UI copy and layout should avoid presenting the product as a generic note sequencer or piano-roll editor.
+
 ## MVP Views
 
 - Clip grid with 16 steps.

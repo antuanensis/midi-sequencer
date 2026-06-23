@@ -12,3 +12,5 @@
 - Added deterministic beat-clocked LFO model for CC and probability destinations.
 - Added render-window playback API for beat-range rendering.
 - Added type-checked clip lab demo project fixture with JSON round-trip and render tests.
+- Added package-backed SwiftUI debug shell with a clip-centric 16-step grid, step inspector, rule summaries, and rendered event log.
+- Added AppUI tests for demo clip selection, sparse lock summaries, rendered events, and step selection bounds.

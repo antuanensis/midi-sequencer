@@ -46,16 +46,22 @@
 
 ## Stream 2: Build The Standalone Debug App
 
-- [ ] Create Xcode iPad app target using the SwiftPM engine.
-  - Description: Add the smallest standalone/debug shell that can load project state and call the pure engine.
-  - Why: The MVP says a user should be able to run the debug app, press play, and receive deterministic MIDI output. This is the first user-visible layer.
+- [x] Create package-backed SwiftUI debug shell using the SwiftPM engine.
+  - Description: Added an `AppUI` package target and a thin `MidiSequencerDebugApp` executable target that loads the demo project, displays the selected clip, and calls the pure engine for a rendered event log.
+  - Why: This gives the project its first user-visible layer while preserving the engine/UI boundary.
   - Implement after: engine fixtures.
-  - Implement before: SwiftUI editor surfaces.
+  - Implement before: native iPad target wiring and editable SwiftUI surfaces.
 
-- [ ] Build SwiftUI 16-step clip grid.
-  - Description: Show one clip as 16 stable step cells with note, lock, and playback state indicators.
+- [ ] Create Xcode iPad app target using the SwiftPM engine.
+  - Description: Wrap `AppUI` in a native standalone/debug iPad app target.
+  - Why: The MVP says a user should be able to run the debug app, press play, and receive deterministic MIDI output. The package-backed surface is ready; native target wiring is the remaining app-shell step.
+  - Implement after: package-backed SwiftUI debug shell.
+  - Implement before: simulator QA and Core MIDI debug output.
+
+- [x] Build read-only SwiftUI 16-step clip grid.
+  - Description: Show one clip as 16 stable step cells with note, lock, and rendered/resolved value indicators.
   - Why: The app should feel like a fast tactile clip lab, and the grid is the primary editing surface for Ableton-style clip usefulness and Elektron-style locks.
-  - Implement after: app target.
+  - Implement after: package-backed app shell.
   - Implement before: detailed lock editor.
 
 - [ ] Build step and lock editor.
